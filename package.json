@@ -5,9 +5,9 @@
   "scripts": {
     "all": "run-s lint build",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --content-base=public --open",
-    "lint": "eslint .",
-    "start": "run-s dev"
+    "dev": "npm test -- --auto-watch --no-single-run",
+    "start": "webpack-dev-server --content-base=public --open",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -22,16 +22,35 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-match": "^1.1.1",
     "copy-webpack-plugin": "^4.6.0",
     "eslint": "^5.0.1",
     "eslint-plugin-bpmn-io": "^0.5.3",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-env-preprocessor": "^0.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-safari-launcher": "^1.0.0",
+    "karma-sinon-chai": "^2.0.2",
+    "karma-webpack": "^3.0.0",
+    "mocha": "^5.2.0",
+    "mocha-test-container-support": "0.2.0",
     "npm-run-all": "^4.1.3",
+    "phantomjs-prebuilt": "^2.1.12",
+    "puppeteer": "^1.14.0",
     "raw-loader": "^0.5.1",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.2.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "bpmn-font": "^0.9.0",
     "bpmn-js": "^3.2.2",
     "diagram-js": "^3.1.3",
     "min-dash": "^3.5.0",
