@@ -2,9 +2,7 @@
 
 > :warning: This is a highly experimental feature! Do NOT use this in production!
 
-An example of detecting elements at a given point. Overrides [auto place feature](https://github.com/bpmn-io/bpmn-js/blob/master/lib/features/auto-place/AutoPlace.js) to use element detection feature.
-
-![Screencast](docs/screencast.gif)
+An example of detecting elements at a given point.
 
 ```javascript
 const elementDetection = bpmnModeler.get('elementDetection');

@@ -4,11 +4,19 @@ import {
   some
 } from 'min-dash';
 
+import {
+  append as svgAppend,
+  attr as svgAttr,
+  clear as svgClear,
+  create as svgCreate
+} from 'tiny-svg';
+
 const THRESHOLD = 2;
 
 
 export default class ElementDetection {
-  constructor(elementRegistry) {
+  constructor(canvas, elementRegistry) {
+    this._canvas = canvas;
     this._elementRegistry = elementRegistry;
   }
 
@@ -33,6 +41,8 @@ export default class ElementDetection {
       pointOrRect = toTRBL(pointOrRect);
     }
 
+    // drawRect(pointOrRect, this._canvas);
+
     const elements = this._elementRegistry.filter(elementIntersects(pointOrRect));
 
     return elements;
@@ -40,6 +50,7 @@ export default class ElementDetection {
 }
 
 ElementDetection.$inject = [
+  'canvas',
   'elementRegistry'
 ];
 
@@ -141,4 +152,26 @@ function toTRBL(rect) {
     bottom: rect.y + rect.height,
     left: rect.x
   };
+}
+
+function drawRect(rect, canvas) {
+  const layer = canvas.getLayer('element-detection');
+
+  svgClear(layer);
+
+  const gfx = svgCreate('rect');
+
+  svgAttr(gfx, {
+    fill: 'fuchsia',
+    fillOpacity: 0.25,
+    stroke: 'fuchsia',
+    strokeOpacity: 0.25,
+    strokeWidth: 2,
+    x: rect.left,
+    y: rect.top,
+    width: Math.max(rect.right - rect.left, 2),
+    height: Math.max(rect.bottom - rect.top, 2)
+  });
+
+  svgAppend(layer, gfx);
 }
