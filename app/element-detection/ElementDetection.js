@@ -8,8 +8,7 @@ import {
   append as svgAppend,
   attr as svgAttr,
   clear as svgClear,
-  create as svgCreate,
-  remove as svgRemove
+  create as svgCreate
 } from 'tiny-svg';
 
 const THRESHOLD = 2;
@@ -21,14 +20,6 @@ export default class ElementDetection {
     this._elementRegistry = elementRegistry;
   }
 
-  detectAt(pointOrRect, method) {
-    if (method === 'element-from-point') {
-      return this._elementFromPointDetectAt(pointOrRect);
-    }
-
-    return this._elementRegistryDetectAt(pointOrRect);
-  }
-
   /**
    * Detect elements intersecting point or rect.
    * Uses element registry.
@@ -37,7 +28,7 @@ export default class ElementDetection {
    *
    * @return {Array}
    */
-  _elementRegistryDetectAt(pointOrRect) {
+  detectAt(pointOrRect) {
     if (isPoint(pointOrRect)) {
       pointOrRect = {
         ...pointOrRect,
@@ -54,24 +45,9 @@ export default class ElementDetection {
 
     const elements = measureTime(() => {
       return this._elementRegistry.filter(elementIntersects(pointOrRect));
-    }, 'Detect elements using element registry');
+    });
 
     return elements;
-  }
-
-  /**
-   * Detect elements intersecting point or rect.
-   * Uses #elementFromPoint.
-   * See https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint.
-   *
-   * @param {Object} pointOrRect
-   *
-   * @return {Array}
-   */
-  _elementFromPointDetectAt(pointOrRect) {
-
-    // TODO
-    return [];
   }
 
   _drawRect(rect) {
@@ -147,8 +123,6 @@ function segmentIntersects(rect) {
   return function(segment) {
     let { start, end } = segment;
 
-    let tmp;
-
     if (isHorizontal(segment)) {
       if (start.x > end.x) {
         start = segment.end;
@@ -204,14 +178,14 @@ function toTRBL(rect) {
   };
 }
 
-function measureTime(fn, label = 'Function') {
+function measureTime(fn) {
   const now = performance.now();
 
   const result = fn();
 
   const time = Math.round((performance.now() - now) * 10) / 10
 
-  console.info(`${ label } took ${ time }ms`);
+  console.info(`Detecting elements took ${ time }ms`);
 
   return result;
 }
