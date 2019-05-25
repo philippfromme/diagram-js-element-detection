@@ -2,7 +2,11 @@
 
 > :warning: This is a highly experimental feature! Do NOT use this in production!
 
-An example of detecting elements at a given point.
+A utility that detects elements at a point or in a rectangular area.
+
+![Screencast](docs/screencast.gif)
+
+To verify the usefulness of such a feature this project also implements [ExpandSubProcessBehavior](https://github.com/philippfromme/diagram-js-element-detection/blob/master/app/expand-sub-process-behavior/ExpandSubProcessBehavior.js) solving a [common issue in bpmn-js](https://github.com/camunda/camunda-modeler/issues/1243).
 
 ```javascript
 const elementDetection = bpmnModeler.get('elementDetection');
@@ -34,6 +38,33 @@ const trbl = {
 
 detectedElements = elementDetection.detectAt(trbl);
 ```
+
+# Run
+
+Install:
+
+```shell
+npm install
+```
+
+Run an example featuring [ExpandSubProcessBehavior](https://github.com/philippfromme/diagram-js-element-detection/blob/master/app/expand-sub-process-behavior/ExpandSubProcessBehavior.js):
+
+```shell
+npm start
+```
+
+Test:
+
+```shell
+npm test
+```
+
+or
+
+```shell
+npm run dev
+```
+
 
 # License
 
